@@ -1,5 +1,6 @@
 //
 // Created by rrzhang on 2020/11/1.
+// RDMA read-write 完全不需要对方CPU的参与，client 拿到 server 内存的 token 后，就可以自由读写 server 的内存，server 感知不到。
 //
 
 
@@ -57,10 +58,6 @@ int main(int argc, char **argv) {
         printf("Setting up connection (blocking)\n");
         qpFactory->bindToPort(PORT_NUMBER);
         qp = qpFactory->acceptIncomingConnection(bufferToken, sizeof(infinity::memory::RegionToken));
-
-//        std::this_thread::sleep_for(std::chrono::seconds(1));
-//        memcpy(&a, bufferToReadWrite->getData(), sizeof(uint64_t));
-//        std::cout << a << std::endl;
 
         delete bufferToReadWrite;
 
